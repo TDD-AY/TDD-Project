@@ -11,3 +11,5 @@
 - Tiempo empleado
 - Mapa de la ruta
 - Velocidad media total y por kilómetros.
+
+* Esta información estará disponible tanto en una página web como desde el chat de telegram.

@@ -2,7 +2,7 @@
 name = "trackTool"
 version = "0.1.0"
 description = "A tracking application"
-authors = ["Yabir Garcia <yabirg@protonmail.com>"]
+authors = ["Yabir Garcia <yabirg@protonmail.com>", "Alex Alonso <example@example.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]

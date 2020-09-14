@@ -22,6 +22,19 @@ y procesarlas para mostrar información al usuario.
 
 Discutido en este [issue](https://github.com/TDD-AY/TDD-Project/issues/5)
 
+## Estructura del proyecto
+
+Hemos separado nuestro proyecto en dos carpetas siguiendo un estilo de monorepo.
+
+- En la carpeta [frontend](https://github.com/TDD-AY/TDD-Project/tree/yabir-skeleton/frontend) 
+hemos colocado todos los archivos relativos al frontend que por ahora es un archivo de js 
+básico y un html con las librerías de js que necesitamos.
+
+- En la carpeta [src](https://github.com/TDD-AY/TDD-Project/tree/yabir-skeleton/src) hemos
+colocado nuestro código del servidor donde tenemos el código de nuestro bot y el código de 
+nuestra API. Además se incluye el módulo común para comunicarse con la abstracción en la 
+base de datos y el archivo de dependencias del proyecto.
+
 ## Miembros del equipo
 
 - Yábir García [@yabirgb](https://github.com/yabirgb)

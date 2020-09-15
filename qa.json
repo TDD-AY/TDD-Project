@@ -1,0 +1,7 @@
+{
+  "lenguaje" : "Python",
+  "build" : "src/pyproject.toml",
+  "ficheros" : ["src/database/model.py",
+                "src/telegram_bot/bot.py",
+                "src/web_api/server.py"]
+}

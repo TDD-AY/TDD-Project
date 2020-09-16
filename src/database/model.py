@@ -8,7 +8,7 @@ from datetime import datetime
 DB_NAME = os.environ.get("DB_NAME")
 USER_TDB = os.environ.get("USER_TDB")
 PASS_TDB = os.environ.get("PASS_TDB")
-db = PostgresqlExtDatabase('trabotories_db', user='tdb', password='tdb')
+db = PostgresqlExtDatabase(DB_NAME, user=USER_TDB, password=PASS_TDB)
 
 #Ruta hereda de la clase Model, que tiene implementada las funcionalidades de peewee
 class Ruta(Model):

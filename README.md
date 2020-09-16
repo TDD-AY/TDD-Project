@@ -39,5 +39,6 @@ base de datos y el archivo de dependencias del proyecto.
 
 - Yábir García [@yabirgb](https://github.com/yabirgb)
 - Alejandro Alonso Membrilla [@aalonso99](https://github.com/aalonso99)
-
+- Pilar Navarro Ramírez [@pilarnavarro](https://github.com/pilarnavarro)
+- Juan José Herrera Aranda [@KieDie](https://github.com/Kiedie)
 

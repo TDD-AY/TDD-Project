@@ -43,6 +43,7 @@ jobs:
           python -m pip install --upgrade pip
           poetry install
       - name: Test with pytest
+        working-directory: src
         env:
           DB_NAME: test_db
           USER_TDB: tdd

@@ -14,11 +14,9 @@ def help_command(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
 
-def store_location(coordinates):
+def store_location(user_id, m_id, coordinates):
     pass
 
-def read_location(update, context):
-    pass
 
 def main():
     """Start the bot."""

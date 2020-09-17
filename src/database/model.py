@@ -5,6 +5,8 @@ from playhouse.postgres_ext import *
 
 from datetime import datetime
 
+load_dotenv()
+
 DB_NAME = os.environ.get("DB_NAME")
 USER_TDB = os.environ.get("USER_TDB")
 PASS_TDB = os.environ.get("PASS_TDB")
@@ -31,6 +33,5 @@ def test_db():
     )
 
 if __name__ == "__main__":
-    load_dotenv()
     db.create_tables( [Ruta] )
     #test_db()

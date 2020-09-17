@@ -5,8 +5,8 @@ import os
 from dotenv import load_dotenv
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 
-from database.model import Ruta
-from database.errors import InvalidEntry
+from tassi.database.model import Ruta
+from tassi.database.errors import InvalidEntry
 
 
 # Define a few command handlers. These usually take the two arguments update and

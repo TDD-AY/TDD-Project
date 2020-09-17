@@ -46,7 +46,6 @@ jobs:
           python -m pip install --upgrade pip
           poetry install
       - name: Test with pytest
-        working-directory: src
         env:
           # The hostname used to communicate with the PostgreSQL service container
           POSTGRES_HOST: localhost
@@ -57,5 +56,5 @@ jobs:
           PASS_TDB: tdd
           DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres'
         run: |
-          poetry run python database/model.py
+          poetry run python tassi/database/model.py
           poetry run python -m pytest

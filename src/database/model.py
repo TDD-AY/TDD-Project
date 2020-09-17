@@ -10,7 +10,8 @@ load_dotenv()
 DB_NAME = os.environ.get("DB_NAME")
 USER_TDB = os.environ.get("USER_TDB")
 PASS_TDB = os.environ.get("PASS_TDB")
-db = PostgresqlExtDatabase(DB_NAME, user=USER_TDB, password=PASS_TDB)
+HOST = os.environ.get("DB_HOST") or "localhost"
+db = PostgresqlExtDatabase(DB_NAME, user=USER_TDB, password=PASS_TDB, host=HOST)
 
 #Ruta hereda de la clase Model, que tiene implementada las funcionalidades de peewee
 class Ruta(Model):

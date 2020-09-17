@@ -14,6 +14,7 @@ db = PostgresqlExtDatabase('trabotories_db', user='tdb', password='tdb')
 class Ruta(Model):
 
     user = IntegerField()
+    message = IntegerField()
     date = DateTimeField()
     trajectory = JSONField()
     time = IntegerField( null=True )
@@ -32,4 +33,4 @@ def test_db():
 if __name__ == "__main__":
     load_dotenv()
     db.create_tables( [Ruta] )
-    test_db()
+    #test_db()

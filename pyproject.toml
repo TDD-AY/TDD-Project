@@ -12,6 +12,7 @@ python-dotenv = "^0.14.0"
 python-telegram-bot = "^12.8"
 peewee = "^3.13.3"
 psycopg2 = "^2.8.6"
+haversine = "^2.3.0"
 
 [tool.poetry.dev-dependencies]
 poethepoet = "^0.8.0"

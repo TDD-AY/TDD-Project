@@ -1,5 +1,5 @@
 import pytest
-from database.models import Ruta
+from database.model import Ruta
 from telegram_bot.bot import store_location
 from database.errors import InvalidEntry
 
@@ -18,6 +18,10 @@ def test_add_entry_correct():
     assert route.trajectory[0].get("latitude") == 2.0
     assert route.user == USER_ID
 
+    # undo changes
+
+    Ruta.delete().where(Ruta.message == MESSAGE_ID).execute()
+
 
 def test_add_entry_when_already_exists():
     
@@ -28,6 +32,9 @@ def test_add_entry_when_already_exists():
     route = Ruta.select().order_by(Ruta.id.desc()).get()
 
     assert len(route.trajectory) == 2
+
+    # undo changes
+    Ruta.delete().where(Ruta.message == MESSAGE_ID).execute()
 
 def test_add_with_no_coordinates():
     

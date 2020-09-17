@@ -22,6 +22,10 @@ def help_command(update, context):
 
 def store_location(user_id: int, m_id: int, coordinates: Dict[str, float]):
 
+    """
+    Store the trayectory point(coordinates) produced by an user (user_id) in a message (m_id)
+    """
+
     if ("longitude" in coordinates.keys()) and ("latitude" in coordinates.keys()):
         if type(coordinates.get("longitude")) == float and type(coordinates.get("latitude")) == float:
             ruta = Ruta.get_or_none(message = m_id)
@@ -30,7 +34,8 @@ def store_location(user_id: int, m_id: int, coordinates: Dict[str, float]):
                 ruta.trajectory.append(coordinates)
 
                 if len(ruta.trajectory) > 2:
-                    # Todo: Calculate  Haversine distante 
+                    # TODO: Calculate  Haversine distante 
+                    # TODO: Test that the addition works correctly
                     pass
 
                 ruta.save()
@@ -46,7 +51,7 @@ def store_location(user_id: int, m_id: int, coordinates: Dict[str, float]):
     else:
         raise InvalidEntry("latitude or longitude not in the keys")
 
-    
+
 
 def main():
     """Start the bot."""

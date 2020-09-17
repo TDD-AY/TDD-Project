@@ -16,6 +16,27 @@ db = PostgresqlExtDatabase(DB_NAME, user=USER_TDB, password=PASS_TDB, host=HOST)
 #Ruta hereda de la clase Model, que tiene implementada las funcionalidades de peewee
 class Ruta(Model):
 
+    """
+    This class represent the route taken by an user. The different
+    points of the rute are stored in a json field called trajectory. 
+    The format for the trajectory points in json is the following
+
+    {
+        "longitude": float,
+        "latitude": float,
+        "datetime": int
+    }
+
+    The columns of the table are the following
+
+    user: user id storing the route. We take this id from telegram users' id
+    message: id of the message sharing the live location
+    date: date when the route was created
+    trajectory: a json list containing the deifferent points recorded
+    time: total time pre-computed used to complete the route
+    distance: total distance of the route (added harvesine distance between points)
+    """
+
     user = IntegerField()
     message = IntegerField()
     date = DateTimeField()
@@ -25,13 +46,6 @@ class Ruta(Model):
 
     class Meta:
         database = db
-
-def test_db():
-    Ruta.create(
-        user = 1,
-        date = datetime.now(),
-        trajectory = {"lat":1.0, "long":1.0}
-    )
 
 if __name__ == "__main__":
     db.create_tables( [Ruta] )

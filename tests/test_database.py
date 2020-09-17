@@ -1,7 +1,7 @@
 import pytest
-from database.model import Ruta
-from telegram_bot.bot import store_location
-from database.errors import InvalidEntry
+from tassi.database.model import Ruta
+from tassi.telegram_bot.bot import store_location
+from tassi.database.errors import InvalidEntry
 
 
 USER_ID = 1

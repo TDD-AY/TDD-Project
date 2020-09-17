@@ -15,10 +15,12 @@ psycopg2 = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 poethepoet = "^0.8.0"
+pytest = "^6.0.2"
+
+[tool.poe.tasks]
+test = "echo 'hi'"
 
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
-[tool.poe.tasks]
-test = "echo 'hi'"

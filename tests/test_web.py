@@ -27,7 +27,7 @@ def test_get_routes(client):
 
     coordinates1=[{"longitude":2.2,"latitude":3.5},{"longitude":6.8,"latitude":7.4}]
     coordinates2=[{"longitude":4.7,"latitude":1.9}]
-   
+
     time1=datetime.now()
 
     Ruta.create(
@@ -92,15 +92,13 @@ def test_delete_route_by_id(client):
     
     #Create a route
     coordinates1=[{"longitude":2.2,"latitude":3.5},{"longitude":6.8,"latitude":7.4}]
-    time1=datetime.now()
     
     Ruta.create(
                     user= USER_ID1, 
                     message = MESSAGE_ID1, 
-                    date = time1, 
+                    date = datetime.now(), 
                     trajectory = coordinates1
                 )
 
-    rv = client.delete(f'/api/v1/{USER_ID1}/route/{MESSAGE_ID1}')
-    assert len(rv.data) == 0 
-   
+    client.delete(f'/api/v1/{USER_ID1}/route/{MESSAGE_ID1}')
+    assert Ruta.get_or_none(message = MESSAGE_ID1 )==None 

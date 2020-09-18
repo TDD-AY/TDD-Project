@@ -8,6 +8,8 @@ from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 from tassi.database.model import Ruta
 from tassi.database.errors import InvalidEntry
 
+from haversine import haversine		#Compute Haversine distance
+
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
@@ -33,18 +35,19 @@ def store_location(user_id: int, m_id: int, coordinates: Dict[str, float]):
             if ruta:
                 ruta.trajectory.append(coordinates)
 
-                if len(ruta.trajectory) > 2:
-                    # TODO: Calculate  Haversine distante 
-                    # TODO: Test that the addition works correctly
-                    pass
+                if len(ruta.trajectory) >= 2:
+                    current_position = tuple( coordinates.values() )
+                    previous_position = tuple( ruta.trajectory[-2].values() )
+                    ruta.distance += haversine( previous_position, current_position )
 
                 ruta.save()
             else:
                 Ruta.create(
-                    user= user_id, 
-                    message = m_id, 
-                    date = datetime.now(), 
+                    user= user_id,
+                    message = m_id,
+                    date = datetime.now(),
                     trajectory = [coordinates],
+                    distance = 0.0,
                 )
         else:
             raise InvalidEntry("Invalid type for coordinates")
@@ -55,9 +58,9 @@ def store_location(user_id: int, m_id: int, coordinates: Dict[str, float]):
 
 def main():
     """Start the bot."""
-    
+
     TOKEN = os.environ.get("TOKEN")
-    
+
     pass
 
 if __name__ == '__main__':

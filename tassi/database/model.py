@@ -38,7 +38,7 @@ class Ruta(Model):
     """
 
     user = IntegerField()
-    message = IntegerField()
+    message = IntegerField(unique=True)
     date = DateTimeField()
     trajectory = JSONField()
     time = IntegerField( null=True )

@@ -28,10 +28,10 @@ def store_location(user_id: int, m_id: int, position_data: Dict[str, float]):
     Store the trayectory point and time (position_data) produced by an user (user_id) in a message (m_id)
     """
 
-    if ("longitude" in position_data.keys()) and ("latitude" in position_data.keys()) and ("time" in position_data.keys()):
+    if ("longitude" in position_data.keys()) and ("latitude" in position_data.keys()) and ("datetime" in position_data.keys()):
         correct_types = type(position_data.get("longitude")) == float
         correct_types = correct_types and type(position_data.get("latitude")) == float
-        correct_types = correct_types and type(position_data.get("time")) == int
+        correct_types = correct_types and type(position_data.get("datetime")) == int
         if correct_types:
             ruta = Ruta.get_or_none(message = m_id)
 
@@ -42,7 +42,7 @@ def store_location(user_id: int, m_id: int, position_data: Dict[str, float]):
                     current_position = tuple( [position_data.get("longitude"), position_data.get("latitude")] )
                     previous_position = tuple( [ruta.trajectory[-2].get("longitude"), ruta.trajectory[-2].get("latitude")] )
                     ruta.distance += haversine( previous_position, current_position )
-                    ruta.time += position_data.get("time") - ruta.trajectory[-2].get("time")
+                    ruta.time += position_data.get("datetime") - ruta.trajectory[-2].get("datetime")
 
                 ruta.save()
             else:

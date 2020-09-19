@@ -22,23 +22,27 @@ def help_command(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
 
-def store_location(user_id: int, m_id: int, coordinates: Dict[str, float]):
+def store_location(user_id: int, m_id: int, position_data: Dict[str, float]):
 
     """
-    Store the trayectory point(coordinates) produced by an user (user_id) in a message (m_id)
+    Store the trayectory point and time (position_data) produced by an user (user_id) in a message (m_id)
     """
 
-    if ("longitude" in coordinates.keys()) and ("latitude" in coordinates.keys()):
-        if type(coordinates.get("longitude")) == float and type(coordinates.get("latitude")) == float:
+    if ("longitude" in position_data.keys()) and ("latitude" in position_data.keys()) and ("time" in position_data.keys()):
+        correct_types = type(position_data.get("longitude")) == float
+        correct_types = correct_types and type(position_data.get("latitude")) == float
+        correct_types = correct_types and type(position_data.get("time")) == int
+        if correct_types:
             ruta = Ruta.get_or_none(message = m_id)
 
             if ruta:
-                ruta.trajectory.append(coordinates)
+                ruta.trajectory.append(position_data)
 
                 if len(ruta.trajectory) >= 2:
-                    current_position = tuple( coordinates.values() )
-                    previous_position = tuple( ruta.trajectory[-2].values() )
+                    current_position = tuple( [position_data.get("longitude"), position_data.get("latitude")] )
+                    previous_position = tuple( [ruta.trajectory[-2].get("longitude"), ruta.trajectory[-2].get("latitude")] )
                     ruta.distance += haversine( previous_position, current_position )
+                    ruta.time += position_data.get("time") - ruta.trajectory[-2].get("time")
 
                 ruta.save()
             else:
@@ -46,11 +50,12 @@ def store_location(user_id: int, m_id: int, coordinates: Dict[str, float]):
                     user= user_id,
                     message = m_id,
                     date = datetime.now(),
-                    trajectory = [coordinates],
+                    trajectory = [position_data],
+                    time = 0,
                     distance = 0.0,
                 )
         else:
-            raise InvalidEntry("Invalid type for coordinates")
+            raise InvalidEntry("Invalid type for position_data")
     else:
         raise InvalidEntry("latitude or longitude not in the keys")
 

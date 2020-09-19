@@ -25,8 +25,8 @@ def test_get_routes(client):
 
     #Create some routes 
 
-    coordinates1=[{"longitude":2.2,"latitude":3.5},{"longitude":6.8,"latitude":7.4}]
-    coordinates2=[{"longitude":4.7,"latitude":1.9}]
+    coordinates1=[{"longitude":2.2,"latitude":3.5,"datetime": 34676},{"longitude":6.8,"latitude":7.4,"datetime": 47580}]
+    coordinates2=[{"longitude":4.7,"latitude":1.9,"datetime": 30000}]
 
     time1=datetime.now()
 
@@ -65,8 +65,8 @@ def test_emptyness(client):
 
 def test_get_route_by_id(client):
         
-    #Create some routes 
-    coordinates1=[{"longitude":2.2,"latitude":3.5},{"longitude":6.8,"latitude":7.4}]
+    #Create a route
+    coordinates1=[{"longitude":2.2,"latitude":3.5,"datetime": 34676},{"longitude":6.8,"latitude":7.4,"datetime": 47580}]
     time1=datetime.now()
 
     Ruta.create(
@@ -91,7 +91,7 @@ def test_get_route_by_id(client):
 def test_delete_route_by_id(client):
     
     #Create a route
-    coordinates1=[{"longitude":2.2,"latitude":3.5},{"longitude":6.8,"latitude":7.4}]
+    coordinates1=[{"longitude":2.2,"latitude":3.5,"datetime": 34676},{"longitude":6.8,"latitude":7.4,"datetime": 47580}]
     
     Ruta.create(
                     user= USER_ID1, 

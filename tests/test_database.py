@@ -12,12 +12,13 @@ MESSAGE_ID = 11
 def test_add_entry_correct():
 
     # add route to the database
-    store_location(USER_ID, MESSAGE_ID, {"longitude": 1.0, "latitude": 2.0})
+    store_location(USER_ID, MESSAGE_ID, {"longitude": 1.0, "latitude": 2.0,"time": 0})
 
     route = Ruta.select().order_by(Ruta.id.desc()).get()
 
     assert route.trajectory[0].get("longitude") == 1.0
     assert route.trajectory[0].get("latitude") == 2.0
+    assert route.trajectory[0].get("time") == 0
     assert route.user == USER_ID
 
     # undo changes
@@ -28,8 +29,8 @@ def test_add_entry_correct():
 def test_add_entry_when_already_exists():
 
     # add route to the database
-    store_location(USER_ID, MESSAGE_ID, {"longitude": 1.0, "latitude": 2.0})
-    store_location(USER_ID, MESSAGE_ID, {"longitude": 3.0, "latitude": 4.0})
+    store_location(USER_ID, MESSAGE_ID, {"longitude": 1.0, "latitude": 2.0, "time": 0})
+    store_location(USER_ID, MESSAGE_ID, {"longitude": 3.0, "latitude": 4.0, "time": 5})
 
     route = Ruta.select().order_by(Ruta.id.desc()).get()
 
@@ -39,11 +40,11 @@ def test_add_entry_when_already_exists():
     Ruta.delete().where(Ruta.message == MESSAGE_ID).execute()
 
 
-def test_add_distance_when_adding_entry():
+def test_add_distance_and_time_when_adding_entry():
 
-    store_location(USER_ID, MESSAGE_ID, {"longitude": 1.0, "latitude": 2.0})
-    store_location(USER_ID, MESSAGE_ID, {"longitude": 3.0, "latitude": 4.0})
-    store_location(USER_ID, MESSAGE_ID, {"longitude": 7.0, "latitude": 9.0})
+    store_location(USER_ID, MESSAGE_ID, {"longitude": 1.0, "latitude": 2.0, "time": 0})
+    store_location(USER_ID, MESSAGE_ID, {"longitude": 3.0, "latitude": 4.0, "time": 5})
+    store_location(USER_ID, MESSAGE_ID, {"longitude": 7.0, "latitude": 9.0, "time": 10})
 
     route = Ruta.select().order_by(Ruta.id.desc()).get()
 
@@ -52,6 +53,7 @@ def test_add_distance_when_adding_entry():
     pos3 = (7.0, 9.0)
 
     assert isclose(route.distance, haversine(pos1,pos2)+haversine(pos2,pos3), abs_tol=0.1)
+    assert route.time == 10
 
     # undo changes
     Ruta.delete().where(Ruta.message == MESSAGE_ID).execute()
@@ -66,4 +68,4 @@ def test_add_with_no_coordinates():
 def test_add_with_invalid_coordinates():
 
     with pytest.raises(InvalidEntry):
-        assert store_location(USER_ID, MESSAGE_ID, {"longitude": "a", "latitude": "b"})
+        assert store_location(USER_ID, MESSAGE_ID, {"longitude": "a", "latitude": "b", "time": "c"})

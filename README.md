@@ -43,10 +43,16 @@ base de datos y el archivo de dependencias del proyecto.
 - Juan José Herrera Aranda [@KieDie](https://github.com/Kiedie)
 
 # Instrucciones
-Para ejecutar los tests del proyecto basta con llamar a la herramienta _poe_ de _poetry_ bajo el comando 'test':
 
-	`poetry run poe test`
+Para instalar las dependencias del proyecto recomendamos la utilización de `poetry`. 
+Una vez se tenga `poetry` instalado se ha de ejecutar
 
-Desde dentro del entorno virtual generado por _poetry_ es suficiente con:
+	poetry install
 
-	`poe test`
+para instalar las dependencias del proyecto. Para ejecutar los tests del proyecto basta con llamar a la herramienta _poe_ de `poetry` bajo el comando 'test':
+
+	poetry run poe test
+
+Desde dentro del entorno virtual generado por `poetry` es suficiente con:
+
+	poe test

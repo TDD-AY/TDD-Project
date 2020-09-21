@@ -4,5 +4,6 @@
   "ficheros" : ["tassi/database/model.py",
                 "tassi/telegram_bot/bot.py",
                 "tassi/web_api/server.py"],
-  "tests" : ["tests/test_database.py", "tests/test_web.py"]
+  "tests" : ["tests/test_database.py", "tests/test_web.py"],
+  "runner" : "poetry run poe"
 }

@@ -42,3 +42,11 @@ base de datos y el archivo de dependencias del proyecto.
 - Pilar Navarro Ramírez [@pilarnavarro](https://github.com/pilarnavarro)
 - Juan José Herrera Aranda [@KieDie](https://github.com/Kiedie)
 
+# Instrucciones
+Para ejecutar los tests del proyecto basta con llamar a la herramienta _poe_ de _poetry_ bajo el comando 'test':
+
+	`poetry run poe test`
+
+Desde dentro del entorno virtual generado por _poetry_ es suficiente con:
+
+	`poe test`

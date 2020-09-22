@@ -12,7 +12,7 @@ y procesarlas para mostrar información al usuario.
 
 ## Herramientas que se usan en el proyecto
 
-- Lenguaje: Python y JS
+- Lenguaje: Python en el backend y JS en el frontend
 - Librerias de python para telegram: [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
 - Configuración remota: [etcd](https://etcd.io/)
 - Web server para la API: [Flask](https://flask.palletsprojects.com/en/1.1.x/)

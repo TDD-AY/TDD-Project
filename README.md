@@ -1,4 +1,6 @@
-# Plantilla del curso programación para QA
+# Proyecto del curso de tdd
+
+[![Build Status](https://travis-ci.com/TDD-AY/TDD-Project.svg?branch=master)](https://travis-ci.com/TDD-AY/TDD-Project)
 
 Plantilla para el [curso de desarrollo para QA](https://jj.github.io/curso-tdd)
 

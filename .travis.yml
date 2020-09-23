@@ -25,6 +25,7 @@ python:
 install:
   - pip install poetry
   - pip install coverage
+  - pip install codecov
   - poetry install 
 
 # command to run tests

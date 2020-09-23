@@ -31,7 +31,7 @@ install:
 # command to run tests
 script: 
   - poetry run python tassi/database/model.py
-  - poetry run poe test 
+  - poetry run poe coverage 
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

@@ -1,4 +1,7 @@
-from flask import Flask, request
+from tassi.database.model import Ruta
+from flask import Flask, request, jsonify
+from datetime import datetime
+
 app = Flask(__name__)
 
 @app.route('/api/v1/<int:user_id>/my-routes')
@@ -9,9 +12,24 @@ def get_routes(user_id):
     The result should be a json with basic information
     """
 
-    return 'my routes'
+    user_routes = Ruta.select().where(Ruta.user == user_id)
 
-@app.route('/api/v1/<int:user_id>/route/<int:route_id>', methods=['GET', 'DELETE'])
+    routes = []
+
+    for route in user_routes:
+        routes.append(
+            {
+                "user": user_id,
+                "message": route.message,
+                "date": route.date,
+                "trajectory": route.trajectory
+            }
+        )
+
+    return jsonify(routes)
+    
+
+@app.route('/api/v1/<int:user_id>/route/<int:route_id>', methods=['GET', 'POST'])
 def get_route_by_id(user_id, route_id):
 
     """
@@ -21,9 +39,25 @@ def get_route_by_id(user_id, route_id):
     """
 
     if request.method == 'GET':
-        return 'getting route by id'
-    elif request.method == 'DELETE': 
-        return 'DELETED'
+        r = Ruta.get_or_none(message=route_id)
+        if r != None:
+            return jsonify(
+                {
+                    "distance_total": r.distance,
+                    "time": r.time,
+                    "date": r.date,
+                }
+            )
+        else:
+            return jsonify({})
+    elif request.method == 'POST': 
+        ruta = Ruta.get_or_none(message=route_id)
+        if (ruta != None) and (ruta.user == user_id):
+            Ruta.delete().where(Ruta.message == route_id).execute()
+            return "Deleted"
+
+        return "Doesn't exist"
+        
 
 @app.route('/health')
 def hello_world():

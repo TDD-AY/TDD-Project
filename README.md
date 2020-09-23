@@ -1,7 +1,10 @@
 # Proyecto del curso de tdd
 
 [![Build Status](https://travis-ci.com/TDD-AY/TDD-Project.svg?branch=master)](https://travis-ci.com/TDD-AY/TDD-Project)
+[![codecov](https://codecov.io/gh/TDD-AY/TDD-Project/branch/master/graph/badge.svg)](https://codecov.io/gh/TDD-AY/TDD-Project)
+
 [![Coverage Status](https://codecov.io/gh/TDD-AY/TDD-Project/branch/coverage/graphs/tree.svg)](https://travis-ci.com/TDD-AY/TDD-Project)
+
 
 Plantilla para el [curso de desarrollo para QA](https://jj.github.io/curso-tdd)
 

@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 import pytest   
 from tassi.web_api import server
 from tassi.database.model import Ruta
@@ -28,29 +29,31 @@ def test_get_routes(client):
     coordinates1=[{"longitude":2.2,"latitude":3.5,"datetime": 34676},{"longitude":6.8,"latitude":7.4,"datetime": 47580}]
     coordinates2=[{"longitude":4.7,"latitude":1.9,"datetime": 30000}]
 
-    time1=datetime.now()
+    time1 = datetime.now().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
     Ruta.create(
-                    user= USER_ID1, 
-                    message = MESSAGE_ID1, 
-                    date = time1, 
-                    trajectory = coordinates1
-                )
+        user= USER_ID1, 
+        message = MESSAGE_ID1, 
+        date = time1, 
+        trajectory = coordinates1
+    )
 
-    time2=datetime.now()
+    time2 = datetime.now().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
     Ruta.create(
-                    user= USER_ID1, 
-                    message = MESSAGE_ID2, 
-                    date = time2, 
-                    trajectory = coordinates2
-                )
+        user= USER_ID1, 
+        message = MESSAGE_ID2, 
+        date = time2, 
+        trajectory = coordinates2
+    )
 
     rutas=[{"user":USER_ID1,"message":MESSAGE_ID1,"date": time1, "trajectory": coordinates1},
     {"user":USER_ID1,"message":MESSAGE_ID2,"date": time2, "trajectory": coordinates2}]
 
-    rv = client.get(f'/api/v1/{USER_ID1}/my-routes')
-    assert sorted(rutas.items()) == sorted(rv.data.items())                       
+    rv = json.loads(client.get(f'/api/v1/{USER_ID1}/my-routes').data)
+
+    for i, ruta in enumerate(rutas):
+        assert sorted(ruta.items()) == sorted(rv[i].items())                       
 
     #Undo changes in the database
     Ruta.delete().where(Ruta.message == MESSAGE_ID1).execute()
@@ -59,28 +62,32 @@ def test_get_routes(client):
 
 def test_emptyness(client):
     
-    rv = client.get(f'/api/v1/{USER_ID1}/my-routes')
+    rv = json.loads(client.get(f'/api/v1/{USER_ID1}/my-routes').data)
 
-    assert len(rv.data)==0
+    assert len(rv)==0
 
 def test_get_route_by_id(client):
         
     #Create a route
     coordinates1=[{"longitude":2.2,"latitude":3.5,"datetime": 34676},{"longitude":6.8,"latitude":7.4,"datetime": 47580}]
-    time1=datetime.now()
+    time1 = datetime.now().strftime("%a, %d %b %Y %H:%M:%S GMT")
+    distance, time = 46, 6
 
     Ruta.create(
-                    user= USER_ID1, 
-                    message = MESSAGE_ID1, 
-                    date = time1, 
-                    trajectory = coordinates1
-                )
+        user= USER_ID1, 
+        message = MESSAGE_ID1, 
+        date = time1, 
+        trajectory = coordinates1,
+        distance = distance,
+        time = time
+    )
 
 
-    ruta={"distance_total":46,"time":6,"date": time1,"speed_km":47,"speed_average":44 }
+    ruta={"distance_total":distance,"time":time,"date": time1}
 
-    rv = client.get(f'/api/v1/{USER_ID1}/route/{MESSAGE_ID1}')
-    assert sorted(ruta.items()) == sorted(rv.data.items())
+    rv = json.loads(client.get(f'/api/v1/{USER_ID1}/route/{MESSAGE_ID1}').data)
+
+    assert sorted(ruta.items()) == sorted(rv.items())
 
     #TO-DO: checkout that the values are correct                       
 
@@ -94,11 +101,11 @@ def test_delete_route_by_id(client):
     coordinates1=[{"longitude":2.2,"latitude":3.5,"datetime": 34676},{"longitude":6.8,"latitude":7.4,"datetime": 47580}]
     
     Ruta.create(
-                    user= USER_ID1, 
-                    message = MESSAGE_ID1, 
-                    date = datetime.now(), 
-                    trajectory = coordinates1
-                )
+        user= USER_ID1, 
+        message = MESSAGE_ID1, 
+        date = datetime.now(), 
+        trajectory = coordinates1
+    )
 
-    client.delete(f'/api/v1/{USER_ID1}/route/{MESSAGE_ID1}')
+    client.post(f'/api/v1/{USER_ID1}/route/{MESSAGE_ID1}')
     assert Ruta.get_or_none(message = MESSAGE_ID1 )==None 

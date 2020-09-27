@@ -69,4 +69,4 @@ Para ejecutar los tests de cobertura, análogamente, puede hacerse:
 
 Para ejecutar la app del servidor debe ejecutarse:
 
-  poetry run poe run
+  	poetry run poe run

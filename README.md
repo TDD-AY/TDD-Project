@@ -11,7 +11,7 @@ Plantilla para el [curso de desarrollo para QA](https://jj.github.io/curso-tdd)
 ## Descripción del proyecto
 
 Problema que queremos resolver: Nos ha interesado estudiar la evolución de una recuperación, estudiando para ello, cómo evoluciona
-la capacidad de recorrer una determinada ruta en días consecutivos. 
+la capacidad de recorrer una determinada ruta en días consecutivos.
 
 Solución que proponemos: Utilizar la API de telegram y las funcionalidades que ofrece para recoger información de recorridos
 y procesarlas para mostrar información al usuario.
@@ -32,13 +32,13 @@ Discutido en este [issue](https://github.com/TDD-AY/TDD-Project/issues/5)
 
 Hemos separado nuestro proyecto en dos carpetas siguiendo un estilo de monorepo.
 
-- En la carpeta [frontend](https://github.com/TDD-AY/TDD-Project/tree/yabir-skeleton/frontend) 
-hemos colocado todos los archivos relativos al frontend que por ahora es un archivo de js 
+- En la carpeta [frontend](https://github.com/TDD-AY/TDD-Project/tree/yabir-skeleton/frontend)
+hemos colocado todos los archivos relativos al frontend que por ahora es un archivo de js
 básico y un html con las librerías de js que necesitamos.
 
 - En la carpeta [src](https://github.com/TDD-AY/TDD-Project/tree/yabir-skeleton/src) hemos
-colocado nuestro código del servidor donde tenemos el código de nuestro bot y el código de 
-nuestra API. Además se incluye el módulo común para comunicarse con la abstracción en la 
+colocado nuestro código del servidor donde tenemos el código de nuestro bot y el código de
+nuestra API. Además se incluye el módulo común para comunicarse con la abstracción en la
 base de datos y el archivo de dependencias del proyecto.
 
 ## Miembros del equipo
@@ -50,7 +50,7 @@ base de datos y el archivo de dependencias del proyecto.
 
 # Instrucciones
 
-Para instalar las dependencias del proyecto recomendamos la utilización de `poetry`. 
+Para instalar las dependencias del proyecto recomendamos la utilización de `poetry`.
 Una vez se tenga `poetry` instalado se ha de ejecutar
 
 	poetry install
@@ -62,7 +62,11 @@ para instalar las dependencias del proyecto. Para ejecutar los tests del proyect
 Desde dentro del entorno virtual generado por `poetry` es suficiente con:
 
 	poe test
-	
+
 Para ejecutar los tests de cobertura, análogamente, puede hacerse:
 
 	poetry run poe coverage
+
+Para ejecutar la app del servidor debe ejecutarse:
+
+  poetry run poe run

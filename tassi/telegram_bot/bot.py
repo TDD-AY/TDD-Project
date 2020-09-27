@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Union
 from datetime import datetime
 import os
 
@@ -22,7 +22,7 @@ def help_command(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
 
-def store_location(user_id: int, m_id: int, position_data: Dict[str, float]):
+def store_location(user_id: int, m_id: int, position_data: Dict[str, Union[float, int]]):
 
     """
     Store the trayectory point and time (position_data) produced by an user (user_id) in a message (m_id)
@@ -59,15 +59,65 @@ def store_location(user_id: int, m_id: int, position_data: Dict[str, float]):
     else:
         raise InvalidEntry("latitude or longitude not in the keys")
 
+def parser(data):
+    """
+    Parse data from the telegram updater
+    """
+    message_id = data.message_id
+    user_id = data.chat.id 
+    position = {
+        "longitude": data.location.longitude,
+        "latitude": data.location.latitude,
+    }
+
+    date = None
+    try:
+        date = data.edit_date
+    except:
+        date = data.date
+
+    position["datetime"] = date
+
+    return (message_id, user_id, position)
+
+def handle_location(update, _):
+
+    message = None
+
+    if update.edited_message == None:
+        message = update.message
+    else:
+        message = update.edited_message
+
+    data = parser(message)
+    store_location(*data)
 
 
 def main():
     """Start the bot."""
-
+    load_dotenv()
     TOKEN = os.environ.get("TOKEN")
 
-    pass
+    # Create the Updater and pass it your token and private key
+    updater = Updater(TOKEN, use_context=True)
+
+    # Get the dispatcher to register handlers
+    dp = updater.dispatcher
+    
+     # on different commands - answer in Telegram
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("help", help_command))
+
+    # On messages that include passport data call msg
+    dp.add_handler(MessageHandler(Filters.location, handle_location))
+
+    # Start the Bot
+    updater.start_polling()
+
+    # Run the bot until you press Ctrl-C or the process receives SIGINT,
+    # SIGTERM or SIGABRT. This should be used most of the time, since
+    # start_polling() is non-blocking and will stop the bot gracefully.
+    updater.idle()
 
 if __name__ == '__main__':
-    load_dotenv()
     main()

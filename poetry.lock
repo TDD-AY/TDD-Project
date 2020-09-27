@@ -351,6 +351,21 @@ testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xm
 
 [[package]]
 category = "main"
+description = "Advanced Python dictionaries with dot notation access"
+name = "python-box"
+optional = false
+python-versions = ">=3.6"
+version = "5.1.1"
+
+[package.extras]
+all = ["ruamel.yaml", "toml", "msgpack"]
+msgpack = ["msgpack"]
+pyyaml = ["pyyaml"]
+"ruamel.yaml" = ["ruamel.yaml"]
+toml = ["toml"]
+
+[[package]]
+category = "main"
 description = "Add .env support to your django/flask apps in development and deployments"
 name = "python-dotenv"
 optional = false
@@ -453,9 +468,9 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "a8475a8f83ebf587514ea5b852ecb8c3534113f99d8a42f9269a0ee96407e7fd"
+content-hash = "a941b3dad7442f8eb900b7b07a711db23181b3240cb83b44f9ead3c94b5cdca8"
 lock-version = "1.0"
-python-versions = "^3.6 || ^3.7"
+python-versions = "^3.6 || ^3.7 || ^3.8"
 
 [metadata.files]
 astroid = [
@@ -695,6 +710,10 @@ pyparsing = [
 pytest = [
     {file = "pytest-6.0.2-py3-none-any.whl", hash = "sha256:0e37f61339c4578776e090c3b8f6b16ce4db333889d65d0efb305243ec544b40"},
     {file = "pytest-6.0.2.tar.gz", hash = "sha256:c8f57c2a30983f469bf03e68cdfa74dc474ce56b8f280ddcb080dfd91df01043"},
+]
+python-box = [
+    {file = "python-box-5.1.1.tar.gz", hash = "sha256:e51d03275f0d6fef3c155f79c19e542c2fb6d92e89eb385cd71ea22c5d4681b3"},
+    {file = "python_box-5.1.1-py3-none-any.whl", hash = "sha256:b7a6f3edd2f71e2475d93163b6465f637a2714b155acafef17408b06e55282b3"},
 ]
 python-dotenv = [
     {file = "python-dotenv-0.14.0.tar.gz", hash = "sha256:8c10c99a1b25d9a68058a1ad6f90381a62ba68230ca93966882a4dbc3bc9c33d"},

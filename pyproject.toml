@@ -13,6 +13,7 @@ python-telegram-bot = "^12.8"
 peewee = "^3.13.3"
 psycopg2 = "^2.8.6"
 haversine = "^2.3.0"
+python-box = "^5.1.1"
 pytest-cov = "^2.10.1"
 
 [tool.poetry.dev-dependencies]
@@ -22,6 +23,7 @@ pylint = "^2.6.0"
 
 [tool.poe.tasks]
 test = "python -m pytest"
+bot = "python tassi/telegram_bot/bot.py"
 coverage = "python -m pytest --cov=./"
 
 [build-system]
